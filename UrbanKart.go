@@ -1,6 +1,8 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+)
 
 type User struct { //Struct User to store mobile and address With total and array of products
 	Mobile  int
@@ -198,5 +200,76 @@ func main() {
 			cust_id = WhichUSer()
 			list1.DisplayOrder(cust_id)
 		}
+		if ch == 99 {
+			Admin(&list1)
+			break
+		}
+	}
+}
+
+//Delivery Logistics
+
+type Representative struct {
+	Number int
+	Place  string
+}
+
+type DeliveryOrg struct {
+	Rep []Representative
+}
+
+func Register() (int, string) {
+	var a int
+	var b string
+	fmt.Println("Enter Number")
+	fmt.Scanln(&a)
+	fmt.Println("Enter Place")
+	fmt.Scanln(&b)
+	return a, b
+}
+
+func (d *DeliveryOrg) AddDeliveryRep(R Representative) bool {
+	if d.Rep == nil {
+		d.Rep = make([]Representative, 0)
+	}
+	for _, v := range d.Rep {
+		if v.Number == R.Number {
+			return false
+		}
+	}
+	d.Rep = append(d.Rep, R)
+	return true
+}
+
+/*func (d* DeliveryOrg)AssignOrder(L *List, cust_id int)bool{
+	for k,_ := range d.Rep{
+		for j,_ := range L.U[cust_id]{
+			if d.Rep[k].Place == L.U[j].Place
+		}
+	}
+}*/
+
+func Admin(L *List) {
+	DO := DeliveryOrg{}
+	DR := Representative{}
+	var ch, a int
+	var b string
+	for true {
+		fmt.Println("1.Register Delivery Rep\n2.Assign Representative\n3.View Assignments")
+		fmt.Scanln(&ch)
+		if ch == 1 {
+			a, b = Register()
+			DR = Representative{a, b}
+			DO.AddDeliveryRep(DR)
+			fmt.Println(DO)
+		}
+		if ch == 2 {
+			/*fmt.Println("Enter customer ID to for representative")
+			var cust_id int
+			fmt.Scanln(&cust_id)
+			DO.AssignOrder(L,cust_id)
+			*/
+		}
+
 	}
 }
