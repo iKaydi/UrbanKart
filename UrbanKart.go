@@ -2,7 +2,7 @@ package main
 
 import "fmt"
 
-type User struct { //Struct User to store mobile and address
+type User struct { //Struct User to store mobile and address With total and array of products
 	Mobile  int
 	Address string
 	Trolley Cart
@@ -13,21 +13,22 @@ type List struct { //Struct List to store array of Users
 	U []User
 }
 
-type Product struct {
+type Product struct { //Struct for the Product details
 	Price       int
 	Itemno      int
 	Productname string
 }
 
 type Cart struct {
-	Kart []Product
-	//Total int
+	Kart []Product //Struct for array of products
 }
 
+//Global declaration for ease of use
 var P1 Product = Product{15000, 1, "TV"}
 var P2 Product = Product{25000, 2, "Laptop"}
 var P3 Product = Product{7500, 3, "Phone"}
 
+//Find out customer ID
 func WhichUSer() int {
 	fmt.Printf("Which user number are you?")
 	var i int
@@ -35,6 +36,7 @@ func WhichUSer() int {
 	return i
 }
 
+//Enter details of new user
 func ScanUser() (int, string, Cart) {
 	var n int
 	var s string
@@ -46,6 +48,7 @@ func ScanUser() (int, string, Cart) {
 	return n, s, k
 }
 
+//Add User
 func (L *List) AddUsers(user User) bool { //Func with reference to array of users with argument User type
 
 	if L.U == nil { //If in the list of users, there is no one i.e. NULL
@@ -60,10 +63,12 @@ func (L *List) AddUsers(user User) bool { //Func with reference to array of user
 	return true
 }
 
+//Display products
 func DispProducts() {
 	fmt.Printf("1.TV\n2.Laptop\n3.Phone\n")
 }
 
+//Quantity of Products to proceed with
 func GetQuan() int {
 	var i int
 	fmt.Printf("Enter quantity")
@@ -71,13 +76,11 @@ func GetQuan() int {
 	return i
 }
 
+//Placing order with customer id and quantity of products
 func (L *List) PlaceOrder(quan int, cust_id int) {
 	var ch, k int
-	//L.U[cust_id].Trolley.Kart[cust_id] = Product{}
-	//fmt.Printf("%v", Bag)
 	var TempProduct Product
 	for k = 0; k < quan; k++ {
-		//L.U[cust_id].Trolley.Kart[k] = Product{}
 		DispProducts()
 		fmt.Println("What would you like to choose?")
 		fmt.Scanln(&ch)
@@ -89,74 +92,32 @@ func (L *List) PlaceOrder(quan int, cust_id int) {
 			L.U[cust_id].Trolley.Kart = append(L.U[cust_id].Trolley.Kart, TempProduct)
 			fmt.Printf("%v", L.U[cust_id].Trolley)
 			L.U[cust_id].Total = L.U[cust_id].Total + 15000
-			//L.U[cust_id].Trolley.Kart = append(L.U[cust_id].Trolley.Kart, TempProduct)
-			//fmt.Printf("%v", L.U[cust_id])
-			//Bag[k].Productname = "TV"
-			//TempProduct = Product{Bag[k].Itemno, Bag[k].Price, Bag[k].Productname}
-			//fmt.Printf("%v", TempProduct)
-			//L.U[cust_id].Trolley = make([]L.U[cust_id].Kart,0)
-			//L.U[cust_id].Trolley.Kart[z].Price = 15000
-			//L.U[cust_id].Trolley.Kart[z].Itemno = 1
-			//L.U[cust_id].Trolley.Kart[z].Productname = "TV"
-			//MOST RECENT CORRECT REFER FOR OTHER IF//////////L.U[cust_id].Trolley.Total = 15000 + L.U[cust_id].Trolley.Total
-			//fmt.Printf("%v", TempProduct)
-			//TempProduct = Product{L.U[cust_id].Trolley.Kart[z].Price, L.U[cust_id].Trolley.Kart[z].Itemno, L.U[cust_id].Trolley.Kart[z].Productname}
-			//L.U[cust_id].Trolley.Kart[k] = append(L.U[cust_id].Trolley.Kart[k],TempProduct)
-			//fmt.Printf("%v", TempProduct)
 		}
 		if ch == 2 {
-			//Bag[k].Itemno = 2
-			//Bag[k].Price = 25000
-			//Bag[k].Productname = "Laptop"
 			BIN := 2
 			BP := 25000
 			BN := "Laptop"
 			TempProduct = Product{BP, BIN, BN}
-			//L.U[cust_id].Trolley.Kart = append(Bag, TempProduct)
 			L.U[cust_id].Trolley.Kart = append(L.U[cust_id].Trolley.Kart, TempProduct)
 			L.U[cust_id].Total = L.U[cust_id].Total + 25000
-			//L.U[cust_id].Trolley.Total = 25000 + L.U[cust_id].Trolley.Total
-			//fmt.Printf("%v", TempProduct)
-			//TempProduct = Product{Bag[k].Itemno, Bag[k].Price, Bag[k].Productname}
-			//fmt.Printf("%v", TempProduct)
-			//L.U[cust_id].Trolley.Kart[z].Price = 25000
-			//L.U[cust_id].Trolley.Kart[z].Itemno = 2
-			//L.U[cust_id].Trolley.Kart[z].Productname = "Laptop"
-			//TempProduct = Product{L.U[cust_id].Trolley.Kart[z].Price, L.U[cust_id].Trolley.Kart[z].Itemno, L.U[cust_id].Trolley.Kart[z].Productname}
-			//L.U[cust_id].Trolley.Kart[k] = Product{L.U[cust_id].Trolley.Total + 25000, 2, "Laptop"}
-			//fmt.Printf("%v", TempProduct)
 		}
 		if ch == 3 {
-			//Bag[k].Itemno = 3
-			//Bag[k].Price = 7500
-			//Bag[k].Productname = "Phone"
 			BIN := 3
 			BP := 7500
 			BN := "Phone"
 			TempProduct = Product{BP, BIN, BN}
-			//fmt.Printf("%v", TempProduct)
-			//L.U[cust_id].Trolley.Kart = append(Bag, TempProduct)
 			L.U[cust_id].Trolley.Kart = append(L.U[cust_id].Trolley.Kart, TempProduct)
 			L.U[cust_id].Total = 7500 + L.U[cust_id].Total
-			//L.U[cust_id].Trolley.Total = 7500 + L.U[cust_id].Trolley.Total
-			//	TempProduct = Product{Bag[k].Itemno, Bag[k].Price, Bag[k].Productname}
-			//		fmt.Printf("%v", TempProduct)
-			//L.U[cust_id].Trolley.Kart[z].Price = 7500
-			//L.U[cust_id].Trolley.Kart[z].Itemno = 3
-			//L.U[cust_id].Trolley.Kart[z].Productname = "Phone"
-			//TempProduct = Product{L.U[cust_id].Trolley.Kart[z].Price, L.U[cust_id].Trolley.Kart[z].Itemno, L.U[cust_id].Trolley.Kart[z].Productname}
-			//L.U[cust_id].Trolley.Kart[k] = Product{L.U[cust_id].Trolley.Total + 7500, 3, "Phone"}
-			//fmt.Printf("%v", TempProduct)
 		}
 	}
 	fmt.Printf("%v", L.U)
 }
 
+//After entering user-id, user can add or remove items from trolley
 func (L *List) ChangeOrder(cust_id int) {
 	for true {
 		fmt.Printf("What would you like to remove?\nPress 99 to exit\n")
-		fmt.Printf("%v", L.U[cust_id].Trolley) //Prints the array of structure Product
-		//fmt.Printf("%v", L.U[cust_id].Trolley.Kart[0]) // Prints 0th array of structure Product
+		fmt.Printf("%v", L.U[cust_id].Trolley)
 		var a int
 		fmt.Scanln(&a)
 		if a == 99 {
@@ -169,6 +130,7 @@ func (L *List) ChangeOrder(cust_id int) {
 	}
 }
 
+//Creates a whole new cart for user
 func (L *List) CancelOrder(cust_id int) {
 	for k := range L.U {
 		if k == cust_id {
@@ -179,6 +141,7 @@ func (L *List) CancelOrder(cust_id int) {
 	}
 }
 
+//Display users cart
 func (L *List) DisplayOrder(cust_id int) {
 	for k := range L.U {
 		if k == cust_id {
@@ -209,14 +172,9 @@ func main() {
 			DispProducts()
 		}
 		if ch == 3 {
-			cust_id = WhichUSer() //Customer number
-			quan = GetQuan()      //Quantity
+			cust_id = WhichUSer()
+			quan = GetQuan()
 			list1.PlaceOrder(quan, cust_id)
-
-			//fmt.Printf("%v", list1.U[cust_id]) //succesfull print
-			//fmt.Println(quan)                  //succesful print
-			//Prod()
-
 		}
 		if ch == 4 {
 			cust_id = WhichUSer()
@@ -242,6 +200,3 @@ func main() {
 		}
 	}
 }
-
-//Array of products is your kart
-//so get the total
