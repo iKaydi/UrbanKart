@@ -212,6 +212,8 @@ func main() {
 type Representative struct {
 	Number int
 	Place  string
+	Assign int
+	Order  Cart
 }
 
 type DeliveryOrg struct {
@@ -241,17 +243,22 @@ func (d *DeliveryOrg) AddDeliveryRep(R Representative) bool {
 	return true
 }
 
-/*func (d* DeliveryOrg)AssignOrder(L *List, cust_id int)bool{
-	for k,_ := range d.Rep{
-		for j,_ := range L.U[cust_id]{
-			if d.Rep[k].Place == L.U[j].Place
+func (d *DeliveryOrg) AssignOrder(L *List) bool {
+	for k, _ := range d.Rep {
+		for j, _ := range L.U {
+			if d.Rep[k].Place == L.U[j].Address && d.Rep[k].Assign == -1 {
+				d.Rep[k].Assign = j
+				d.Rep[k].Order = L.U[j].Trolley
+			}
 		}
 	}
-}*/
+	return true
+}
 
 func Admin(L *List) {
 	DO := DeliveryOrg{}
 	DR := Representative{}
+	//fmt.Printf("%v", L.U)Prints correctly all details of user struct
 	var ch, a int
 	var b string
 	for true {
@@ -259,16 +266,17 @@ func Admin(L *List) {
 		fmt.Scanln(&ch)
 		if ch == 1 {
 			a, b = Register()
-			DR = Representative{a, b}
+			DR = Representative{a, b, -1, Cart{}}
 			DO.AddDeliveryRep(DR)
 			fmt.Println(DO)
 		}
 		if ch == 2 {
-			/*fmt.Println("Enter customer ID to for representative")
-			var cust_id int
-			fmt.Scanln(&cust_id)
-			DO.AssignOrder(L,cust_id)
-			*/
+			DO.AssignOrder(L)
+			fmt.Println(DO)
+
+		}
+		if ch == 3 {
+			fmt.Println(DO)
 		}
 
 	}
