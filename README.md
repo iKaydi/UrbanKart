@@ -1,4 +1,9 @@
 # UrbanKart
+A simple ordering application where you can register, order products and modify or cancel accordingly.
+There also is an admin that will assign a representative to users according to place
+
+Note all of this is in one main file
+Need to understand how to do multiple files
 
 # Shopping
 The code consists of 4 structures. Namely : User,Product,List and Cart.
