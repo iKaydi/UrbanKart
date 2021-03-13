@@ -212,7 +212,6 @@ func main() {
 type Representative struct {
 	Number int
 	Place  string
-	Assign int
 	Order  Cart
 }
 
@@ -246,8 +245,7 @@ func (d *DeliveryOrg) AddDeliveryRep(R Representative) bool {
 func (d *DeliveryOrg) AssignOrder(L *List) bool {
 	for k, _ := range d.Rep {
 		for j, _ := range L.U {
-			if d.Rep[k].Place == L.U[j].Address && d.Rep[k].Assign == -1 {
-				d.Rep[k].Assign = j
+			if d.Rep[k].Place == L.U[j].Address {
 				d.Rep[k].Order = L.U[j].Trolley
 			}
 		}
@@ -266,13 +264,13 @@ func Admin(L *List) {
 		fmt.Scanln(&ch)
 		if ch == 1 {
 			a, b = Register()
-			DR = Representative{a, b, -1, Cart{}}
+			DR = Representative{a, b, Cart{}}
 			DO.AddDeliveryRep(DR)
 			fmt.Println(DO)
 		}
 		if ch == 2 {
 			DO.AssignOrder(L)
-			fmt.Println(DO)
+			//fmt.Println(DO)
 
 		}
 		if ch == 3 {
